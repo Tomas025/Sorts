@@ -29,6 +29,27 @@ int bubbleSort(int lista[], int quantElementos) {
   return 0;
 }
 
+int selectionSort(int lista[], int quantElementos) {
+  int indexMenorNumero;
+  int temp;
+  int i;
+  int j;
+
+  for(i = 0; i < quantElementos; i ++) {
+    indexMenorNumero = i;
+    for(j = i; j < quantElementos; j++) {
+      if(lista[j] < lista[indexMenorNumero]) {
+        indexMenorNumero = j;
+      }
+    }
+    if(lista[i] > lista[indexMenorNumero]) {
+      temp = lista[i];
+      lista[i] = lista[indexMenorNumero];
+      lista[indexMenorNumero] = temp;
+    }
+  }
+}
+
 int select(int lista[], int quantElementos, int numero) {
   int i = 0;
 
@@ -75,7 +96,7 @@ int main() {
     printf("%i,", array[i]);
   }
 
-  bubbleSort(array, numElementos);
+  selectionSort(array, numElementos);
 
   printf("\n\n\n");
 
@@ -85,7 +106,6 @@ int main() {
 
   int busca;
 
-  printf("%i", numElementos);
   printf("Digite o numero que voce deseja saber a posicao no array\n");
   scanf("%i", &busca);
 
