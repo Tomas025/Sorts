@@ -50,72 +50,112 @@ int selectionSort(int lista[], int quantElementos) {
   }
 }
 
-int select(int lista[], int quantElementos, int numero) {
-  int i = 0;
+int insertionSort(int lista[], int quantElementos) {
+  int i;
+  int j;
+  int temp;
 
-  for (i = 0; i <= quantElementos; i++) {
-    if (numero == lista[i]) {
-      return i;
+  for (i = 1; i < quantElementos; i++) {
+    for(j = i; j != 0 ; j--) {
+      if(lista[j] < lista[j-1]) {
+        temp = lista[j];
+        lista[j] = lista[j-1];
+        lista[j-1] = temp;
+      }
     }
   }
-
-  return -1;
-}
-
-int binarselect(int lista[], int quantElementos, int numero) {
-  int p = 0;
-  int q = quantElementos;
-  int metade = (int)(q - p) / 2;
-
-  while (p < q) {
-    printf("%i \n", metade);
-    if (numero == lista[metade]) {
-      return metade;
-    } else if (numero == lista[metade - 1]) {
-      metade -= 1;
-    } else if (numero < lista[metade]) {
-      q = metade - 1;
-    } else {
-      p = metade + 1;
-    }
-
-    metade = (int)(q - p) / 2;
-  }
-
-  return -1;
 }
 
 int main() {
-  int array[50] = {31, 36, 15, 33, 26, 97, 87, 14, 23, 4, 32, 25, 48, 57, 9, 93, 83, 98};
-  int max = sizeof(array) / 4;
-  int numElementos = quantElementos(array, max);
+  // A quantidade de numeros e os numeros das listas são os mesmos mas colocados em posições diferentes (Obs.: na terceira lista não tem todos os numeros presentes nos outros dois pelo fato de repetir numeros)
+  int arrayDesordenado[50] = {31, 36, 15, 33, 26, 97, 87, 14, 23, 4, 32, 25, 48, 57, 9, 93, 83, 98};
+  int arrayInvertido[50] = {98, 97, 93, 87, 83, 57, 48, 36, 33, 32, 31, 26, 25, 23, 15, 14, 9, 4};
+  int arrayComNumerosRepetidos[50] = {31, 31, 31, 31, 31, 31, 87, 87, 23, 23, 23, 25, 25, 57, 25, 57, 31, 87};
+  
+  // 4 é a quantidade de bytes de um inteiro
+  int max = sizeof(arrayDesordenado) / 4; 
 
+  // Função para saber a quantidade de elementos presentes na lista (Obs.: só chamei uma vez por que as outras são iguais)
+  int numElementos = quantElementos(arrayDesordenado, max);
+  int escolha;
+  int escolha2;
+
+  int condicaoParada = 1;
   int i;
 
-  for (i = 0; i < numElementos; i++) {
-    printf("%i,", array[i]);
+  while(condicaoParada) {
+    printf("Escolha um dos metodos de ordenacao de acordo com os numeros");
+    printf("\n0 - Bubble Sort");
+    printf("\n1 - Selection Sort");
+    printf("\n2 - Insertion Sort");
+    printf("\nDigite sua escolha: ");
+    scanf("%i", &escolha);
+
+    if(escolha == 0) {
+      printf("\n\n--Você escolheu Bubble Sort--");
+      printf("\nAgora escolha uma das opcoes para que seja ordernada, de acordo com o numero ");
+
+      printf("\n0 - Lista Desordenado: ");
+      for (i = 0; i < numElementos; i++) {
+        if( i == numElementos - 1){
+          printf("%i", arrayDesordenado[i]);
+        } else {
+          printf("%i,", arrayDesordenado[i]);
+        }
+      }
+
+      printf("\n1 - Lista Invertida: ");
+      for (i = 0; i < numElementos; i++) {
+        if( i == numElementos - 1){
+          printf("%i", arrayInvertido[i]);
+        } else {
+          printf("%i,", arrayInvertido[i]);
+        }
+      }
+
+      printf("\n2 - Lista Com Numeros Repetidos:  ");
+      for (i = 0; i < numElementos; i++) {
+        if( i == numElementos - 1){
+          printf("%i", arrayComNumerosRepetidos[i]);
+        } else {
+          printf("%i,", arrayComNumerosRepetidos[i]);
+        }
+      }
+
+      printf("\n3 - As 3 listas");
+
+      printf("\nDigite sua esolha: ");
+      scanf("%i", &escolha2);
+
+      if(escolha2 == 0) {
+        printf("\n\nLista Desordenado: ");
+        for (i = 0; i < numElementos; i++) {
+          if( i == numElementos - 1){
+            printf("%i", arrayDesordenado[i]);
+          } else {
+            printf("%i,", arrayDesordenado[i]);
+          }
+        }
+
+        bubbleSort(arrayDesordenado, numElementos);
+        for (i = 0; i < numElementos; i++) {
+          if( i == numElementos - 1){
+            printf("%i", arrayDesordenado[i]);
+          } else {
+            printf("%i,", arrayDesordenado[i]);
+          }
+        }
+      }
+    }
+
+
+
+
+    printf("\n\n\n");
+
+    for (i = 0; i < numElementos; i++) {
+      printf("%i,", arrayDesordenado[i]);
+    }
   }
-
-  selectionSort(array, numElementos);
-
-  printf("\n\n\n");
-
-  for (i = 0; i < numElementos; i++) {
-    printf("%i,", array[i]);
-  }
-
-  int busca;
-
-  printf("Digite o numero que voce deseja saber a posicao no array\n");
-  scanf("%i", &busca);
-
-  int position = binarselect(array, numElementos, busca);
-
-  if (position != -1) {
-    printf("\nO numero que voce escolheu esta na posicao %i", position);
-  } else {
-    printf("\nO numero que voce escolheu nao esta na lista");
-  }
-
   return 0;
 }
