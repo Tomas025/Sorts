@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 
 int quantElementos(int lista[], int tamanho) {
@@ -505,7 +506,7 @@ int main() {
         }
       }
     } else {
-      printf("O numero que voce digitou nao corresponde a nenhuma das opcoes a cima\nDeseja tentar novamente? Digite 0 para sim e 1 para nao, caso voce digite algo diferente vai ser considerado como a resposta nao\nDigite sua escolha: ");
+      printf("O numero que voce digitou nao corresponde a nenhuma das opcoes a cima\nDeseja tentar novamente? Digite 0 para sim ou 1 para nao, caso voce digite algo diferente vai ser considerado como a resposta nao\nDigite sua escolha: ");
       scanf("%i", &escolha);
       if(escolha == 0) {
         continue;
